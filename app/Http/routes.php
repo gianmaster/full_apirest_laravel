@@ -28,7 +28,14 @@ $api->version('v1', function($api){
     //$api->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'testing'],
     $api->group(['namespace' => 'App\Http\Controllers'],function($api){
 
-        $api->resource('users', 'UsersController');
+        $api->post('/auth/authorize-client', 'Auth\OAuthController@authorizeClient');
+
+        $api->group([ 'middleware' => 'api.auth'], function($api){
+            $api->resource('users', 'UsersController');
+
+            //other test route
+            $api->resource('me', 'ProfileController@index');
+        });
 
     });
 

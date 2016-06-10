@@ -15,6 +15,8 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+
+        \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class,
     ];
 
     /**
@@ -30,7 +32,6 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             // \App\Http\Middleware\VerifyCsrfToken::class,
 
-            \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class,
         ],
 
         'api' => [
