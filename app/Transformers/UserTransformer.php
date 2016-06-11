@@ -13,6 +13,9 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract{
 
+    //protected $defaultIncludes = ['latestPosts'];
+    protected $availableIncludes = ['latestPosts', 'user'];
+
     public function transform(User $user){
         return[
             'id'            => $user->uuid,
@@ -23,5 +26,14 @@ class UserTransformer extends TransformerAbstract{
         ];
     }
 
+
+    public function includeLatestPosts(User $user){
+        $posts = $user->posts()->orderBy('created_at', 'desc')->take(5)->get();
+        return $this->collection($posts, new PostTransformer());
+    }
+
+    public function includeUser($user){
+        return $this->item($user, new UserTransformer());
+    }
 
 }

@@ -32,6 +32,8 @@ $api->version('v1', function($api){
 
         $api->group([ 'middleware' => 'api.auth'], function($api){
             $api->resource('users', 'UsersController');
+            
+            $api->resource('users/{user}/posts', 'UsersPostsController');
 
             //other test route
             $api->resource('me', 'ProfileController@index');
